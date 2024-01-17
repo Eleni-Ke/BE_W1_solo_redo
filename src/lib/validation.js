@@ -63,12 +63,15 @@ export const checkreviewSchema = checkSchema(reviewSchema);
 
 export const triggerBadRequestError = (req, res, next) => {
   const errors = validationResult(req);
+  console.log(errors);
 
   if (errors.isEmpty()) {
     next();
   } else {
-    next(createHttpError(400, "Schema validation failed!"), {
-      errorsList: errors.array(),
-    });
+    next(
+      createHttpError(400, "Schema validation failed!", {
+        errorsList: errors.array(),
+      })
+    );
   }
 };

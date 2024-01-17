@@ -10,6 +10,8 @@ import {
   checkProductSchema,
   triggerBadRequestError,
 } from "../../lib/validation.js";
+import multer from "multer";
+import { extname } from "path";
 
 const productsRouter = Express.Router();
 
@@ -124,5 +126,45 @@ productsRouter.delete("/:productId", async (req, res, next) => {
     next(error);
   }
 });
+
+productsRouter.post(
+  "/:productId/upload",
+  multer().single("productPic"),
+  async (req, res, next) => {
+    try {
+      const allProducts = await getProducts();
+      const productId = req.params.productId;
+      const index = allProducts.findIndex(
+        (product) => product.id === productId
+      );
+      if (index !== -1) {
+        const originalFileExt = extname(req.file.originalname);
+        const fileName = productId + originalFileExt;
+        await writeProductsPicture(fileName, req.file.buffer);
+
+        const oldProduct = allProducts[index];
+        const updatedProduct = {
+          ...oldProduct,
+          ...req.body,
+          imageURL: `http://localhost:3001/img/${fileName}`,
+          updatedAt: new Date(),
+        };
+        allProducts[index] = updatedProduct;
+        await writeProducts(allProducts);
+        res.send({ message: "File has been uploaded" });
+      } else {
+        next(
+          createHttpError(
+            404,
+            `Product with id ${req.params.productId} not found!`
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+      next(error);
+    }
+  }
+);
 
 export default productsRouter;

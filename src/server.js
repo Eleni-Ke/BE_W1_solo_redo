@@ -25,7 +25,7 @@ server.use(Express.json());
 // ************ ROUTES ************
 
 server.use("/products", productsRouter);
-server.use("/reviews", reviewsRouter);
+server.use("/products", reviewsRouter);
 
 // ************ ERROR MIDDLEWARES ************
 

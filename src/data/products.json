@@ -1,1 +1,1 @@
-[]
+[{"name":"Cleaner","price":1234,"description":"This cleaner will clean everything!!!","brand":"Fancy shmancy","category":"cleaning supply","createdAt":"2024-01-17T14:28:17.422Z","updatedAt":"2024-01-17T15:13:24.535Z","id":"2von3vmtlrhvobyn","imageURL":"http://localhost:3001/img/2von3vmtlrhvobyn.jpeg"},{"name":"3310","price":100,"description":"This is a phone and it's kinda phoney...","brand":"Nokia","category":"smartphones","createdAt":"2024-01-17T14:29:50.637Z","updatedAt":"2024-01-17T14:30:49.130Z","id":"2von3vralrhvqbvy"}]
