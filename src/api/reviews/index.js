@@ -110,3 +110,5 @@ reviewsRouter.delete("/:reviewId", async (req, res, next) => {
     next(error);
   }
 });
+
+export default reviewsRouter;
